@@ -40,12 +40,11 @@
 const parentContainer = document.getElementById("parentContainer");
 const firstCard = document.getElementById("firstCard");
 const searchBox = document.getElementById("searchBox");
-const filterBox = document.getElementById('filter'); 
+const filterBox = document.getElementById("filter");
 
 const toggleDarkMode = document.getElementById("toggleDarkmode");
-const toggleLightMode = document.getElementById('toggleLightMode')
+const toggleLightMode = document.getElementById("toggleLightMode");
 const html = document.documentElement; // Get the <html> tag
-
 
 let displayingCountries = [];
 let countries = [];
@@ -53,32 +52,23 @@ let countries = [];
 const displayCurrentCountries = () => {
   if (displayingCountries.length > 0) {
     parentContainer.innerHTML = displayingCountries
-      .map(
-        (
-          country
-        ) => `<div class="flex flex-col w-1/4 bg-white p-4 rounded-lg shadow-md" id="firstCard">
-            
-        <img
-              id="flagImage"
-              src=  ${country.flag}
-              alt=  ${country.name}
-              class="w-full h-32 object-cover"
-            />
-    
-
-        
-            <h3 id="countryName" class="text-lg font-bold mt-2">
-             ${country.name}
-            </h3>
-            <p id="countryPopulation" class="text-gray-600">Population: ${country.population}</p>
-            <p id="countryRegion" class="text-gray-600">Region:   ${country.region}</p>
-            <p id="countryCapital" class="text-gray-600">Capital:   ${country.capital}</p>
-        
-          
-          </div>`
-      )
-      .join("");
-  } else {
+    .map(
+      (country) => `
+        <div class="flex flex-col w-1/4 bg-white p-4 dark:bg-darkmodeShade rounded-lg shadow-md cursor-pointer" 
+          id="firstCard" 
+          data-name="${country.name}">  
+  
+          <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/>
+          <h3 class="text-lg font-bold mt-2">${country.name}</h3>
+          <p class="text-gray-600">Population: ${country.population}</p>
+          <p class="text-gray-600">Region: ${country.region}</p>
+          <p class="text-gray-600">Capital: ${country.capital}</p>
+  
+        </div>
+      `
+    )
+    .join("");
+    } else {
     parentContainer.innerHTML = `<h2>No Available countries<h2>`;
   }
 };
@@ -98,10 +88,12 @@ const res = fetchCountries();
 
 const handleSearch = (value) => {
   console.log(value);
-  const searchData = countries.filter((country) => country.name.toLowerCase().startsWith(value.toLowerCase()));
-  console.log(searchData)
+  const searchData = countries.filter((country) =>
+    country.name.toLowerCase().startsWith(value.toLowerCase())
+  );
+  console.log(searchData);
   displayingCountries = searchData;
-  displayCurrentCountries()
+  displayCurrentCountries();
 };
 
 searchBox.addEventListener("change", (e) => {
@@ -111,9 +103,9 @@ searchBox.addEventListener("change", (e) => {
 //Filter feature
 
 const handleFilter = (value) => {
-  console.log(value); 
+  console.log(value);
   if (value === "all") {
-    displayingCountries = countries; 
+    displayingCountries = countries;
   } else {
     displayingCountries = countries.filter(
       (country) => country.region.toLowerCase() === value.toLowerCase()
@@ -122,33 +114,76 @@ const handleFilter = (value) => {
   displayCurrentCountries();
 };
 
-
-filterBox.addEventListener("change" , (e) => {
+filterBox.addEventListener("change", (e) => {
   handleFilter(e.target.value);
-} );
+});
 
-
-const parentToogle  = document.getElementById('parent-toogle')
+const modeText = document.getElementById("modetext");
+const parentToogle = document.getElementById("parent-toogle");
 parentToogle.addEventListener("click", () => {
-  const isDarkMode = html.classList.toggle("dark"); // Toggles dark mode
+  const isDarkMode = html.classList.toggle("dark");
 
-  // Check if dark mode is active
   if (isDarkMode) {
-   parentToogle.innerHTML = `<div class="flex items-center gap-2 cursor-pointer hidden" id="toggleLightMode">
-          <i class="fa-regular fa-moon"></i>
-          <p class="text-sm bg-[red]">light Modess</p>
-        </div>`
+    modeText.innerText = "Light Mode";
   } else {
-   parentToogle.innerText = `<div class="flex items-center gap-2 cursor-pointer hidden" id="toggleLightMode">
-          <i class="fa-regular fa-moon"></i>
-          <p class="text-sm bg-[red]">light Modess</p>
-        </div>`
+    modeText.innerText = "Dark Mode";
   }
 });
 
+//Details page
+parentContainer.addEventListener("click", (e) => {
+  const clickedCard = e.target.closest("#firstCard"); 
 
-// toggleLightMode.addEventListener('click' , () =>{
-//   html.classList.remove("dark");
-//   toggleDarkMode.style.display = "block"
-//   toggleLightMode.style.display = "none"
-// })
+  if (clickedCard) {
+    const countryName = clickedCard.getAttribute("data-name"); 
+    const clickedCountry = countries.find((country) => country.name === countryName); 
+    
+    if (clickedCountry) {
+      console.log("Country clicked:", clickedCountry);
+
+      parentContainer.innerHTML = `
+        <div class="flex flex-col mx-8 gap-10 my-8 w-full" id="details">
+          <div id="backBtn" class="flex shadow-md items-center gap-2 p-2 w-24 cursor-pointer">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </div>
+
+          <div class="flex justify-between gap-16 py-6">
+            <!-- image div -->
+            <div id="imgcontainer" class="border border-solid w-1/2">
+              <img src="${clickedCountry.flag}" alt="${clickedCountry.name}" class="w-full"/>
+            </div>
+
+            <!-- details div -->
+            <div class="flex flex-col justify-between gap-8 w-1/2">
+              <h2 class="text-2xl font-bold">${clickedCountry.name}</h2>
+
+              <div class="flex justify-between">
+                <div class="flex flex-col">
+                  <h4 class="font-bold">Native Name: <span class="font-light">${clickedCountry.nativeName || "N/A"}</span></h4>
+                  <h4 class="font-bold">Population: <span class="font-light">${clickedCountry.population.toLocaleString()}</span></h4>
+                  <h4 class="font-bold">Region: <span class="font-light">${clickedCountry.region}</span></h4>
+                  <h4 class="font-bold">Sub Region: <span class="font-light">${clickedCountry.subregion || "N/A"}</span></h4>
+                  <h4 class="font-bold">Capital: <span class="font-light">${clickedCountry.capital || "N/A"}</span></h4>
+                </div>
+
+                <div class="flex flex-col">
+                  <h4 class="font-bold">Top Level Domain: <span class="font-light">${clickedCountry.topLevelDomain || "N/A"}</span></h4>
+                  <h4 class="font-bold">Currencies: <span class="font-light">${clickedCountry.currencies ? clickedCountry.currencies.map(c => c.name).join(", ") : "N/A"}</span></h4>
+                  <h4 class="font-bold">Language: <span class="font-light">${clickedCountry.languages ? clickedCountry.languages.map(l => l.name).join(", ") : "N/A"}</span></h4>
+                </div>
+              </div>
+
+              <div class="flex">
+                <h4 class="font-bold">Border Countries: <span class="font-light">${clickedCountry.borders ? clickedCountry.borders.join(", ") : "N/A"}</span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("backBtn").addEventListener("click", () => {
+        displayCurrentCountries();
+      });
+    }
+  }
+});

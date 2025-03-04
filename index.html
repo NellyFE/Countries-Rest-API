@@ -14,26 +14,32 @@
     />
     <title>Countries API</title>
   </head>
-  <body class="bg-lightMode dark:bg-[blue] dark:text-[white] ">
+  <body class="bg-lightMode dark:bg-darkmodeBg dark:text-[white]">
     <!-- The nav -->
     <nav>
       <!-- Nav flex container -->
-      <div id="parent-toogle" class="flex px-6 py-6 justify-between shadow-md bg-[white] dark:bg-[blue] dark:text-[white]">
+      <div
+        id="parent-toogle"
+        class="flex px-6 py-6 justify-between shadow-md bg-[white] dark:bg-darkmodeShade dark:text-[white]"
+      >
         <!-- the text side of the nav -->
         <div>
-          <h2 class="font-bold">Where in the world?</h2>
+          <h2 class="font-bold dark:text-[white]">Where in the world?</h2>
         </div>
 
         <!-- light mode -->
 
         <div class="flex items-center gap-2 cursor-pointer" id="toggleDarkmode">
           <i class="fa-regular fa-moon"></i>
-          <p class="text-sm">Dark Mode</p>
+          <p class="text-sm" id="modetext">Dark Mode</p>
         </div>
 
         <!-- Dark mode -->
 
-        <div class="flex items-center gap-2 cursor-pointer hidden" id="toggleLightMode">
+        <div
+          class="flex items-center gap-2 cursor-pointer hidden"
+          id="toggleLightMode"
+        >
           <i class="fa-regular fa-moon"></i>
           <p class="text-sm bg-[red]">light Mode</p>
         </div>
@@ -48,11 +54,11 @@
         <!-- the search -->
 
         <div
-          class="flex bg-[white] items-center gap-4 w-1/3 p-2 shadow-md rounded"
+          class="flex bg-[white] items-center gap-4 w-1/3 p-2 shadow-md rounded dark:bg-darkmodeShade"
         >
           <i class="fa-solid fa-magnifying-glass" style="color: #c8c9cb"></i>
           <input
-            class="w-full outline-none border-none"
+            class="w-full outline-none border-none dark:bg-darkmodeShade"
             type="text"
             id="searchBox"
             placeholder="Search for a country..."
@@ -63,11 +69,11 @@
 
         <div
           id="filter"
-          class="flex bg-[white] items-center w-40 shadow-md rounded"
+          class="flex bg-[white] items-center w-40 shadow-md rounded dark:bg-darkmodeShade"
         >
           <select
             id="region"
-            class="text-textColor border-none outline-none w-full"
+            class="text-textColor border-none outline-none w-full dark:bg-darkmodeShade dark:text-[white]"
           >
             <option value="all" disabled selected class="text-textColor my-2">
               Filter by Region
@@ -86,8 +92,16 @@
     <!-- The countries -->
     <section class="mx-6">
       <!-- Container for the whole countries -->
-      <div class="flex justify-center gap-8" id="parentContainer">
+      <div class="flex justify-center gap-8" id="parentContainer"></div>
+    </section>
+
+    <section id="detailsContainer">
+      <!-- countries details  -->
+      <div class="flex flex-col mx-8 gap-10 my-8 w-full" id="details">
       </div>
+      
+
+
     </section>
 
     <script src="/index.js"></script>
