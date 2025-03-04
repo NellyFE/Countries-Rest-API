@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#parentContainer {
+  flex-wrap: wrap;
+}
+#parentContainer div {
+  display: flex;
+  flex-direction: column;
+  width: 23%;
+  margin: 8px 0;
+  margin-bottom: 20px;
+}
