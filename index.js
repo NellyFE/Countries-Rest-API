@@ -161,7 +161,7 @@ parentContainer.addEventListener("click", (e) => {
             <div class="flex flex-col justify-between gap-8 w-11/12 md:w-1/2">
               <h2 class="text-2xl font-bold">${clickedCountry.name}</h2>
 
-              <div class="flex flex-col justify-between md:flex-row md:gap-6">
+              <div class="flex flex-col justify-between md:flex-row gap-6">
 
                 <div class="flex flex-col">
                   <h4 class="font-bold">Native Name: <span class="font-light">${
