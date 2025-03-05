@@ -52,23 +52,23 @@ let countries = [];
 const displayCurrentCountries = () => {
   if (displayingCountries.length > 0) {
     parentContainer.innerHTML = displayingCountries
-    .map(
-      (country) => `
-        <div class="flex flex-col w-1/4 bg-white p-4 dark:bg-darkmodeShade rounded-lg shadow-md cursor-pointer" 
+      .map(
+        (country) => `
+        <div class="flex flex-col w-full md:w-[23%] bg-white p-4 dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
           id="firstCard" 
           data-name="${country.name}">  
   
           <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/>
-          <h3 class="text-lg font-bold mt-2">${country.name}</h3>
-          <p class="text-gray-600">Population: ${country.population}</p>
-          <p class="text-gray-600">Region: ${country.region}</p>
-          <p class="text-gray-600">Capital: ${country.capital}</p>
+          <h3 class="text-lg font-bold mt-2 dark:text-[white]">${country.name}</h3>
+          <p class="text-gray-600 dark:text-[white]">Population: ${country.population}</p>
+          <p class="text-gray-600 dark:text-[white]">Region: ${country.region}</p>
+          <p class="text-gray-600 dark:text-[white]">Capital: ${country.capital}</p>
   
         </div>
       `
-    )
-    .join("");
-    } else {
+      )
+      .join("");
+  } else {
     parentContainer.innerHTML = `<h2>No Available countries<h2>`;
   }
 };
@@ -132,49 +132,78 @@ parentToogle.addEventListener("click", () => {
 
 //Details page
 parentContainer.addEventListener("click", (e) => {
-  const clickedCard = e.target.closest("#firstCard"); 
+  const clickedCard = e.target.closest("#firstCard");
 
   if (clickedCard) {
-    const countryName = clickedCard.getAttribute("data-name"); 
-    const clickedCountry = countries.find((country) => country.name === countryName); 
-    
+    const countryName = clickedCard.getAttribute("data-name");
+    const clickedCountry = countries.find(
+      (country) => country.name === countryName
+    );
+
     if (clickedCountry) {
       console.log("Country clicked:", clickedCountry);
 
       parentContainer.innerHTML = `
-        <div class="flex flex-col mx-8 gap-10 my-8 w-full" id="details">
-          <div id="backBtn" class="flex shadow-md items-center gap-2 p-2 w-24 cursor-pointer">
+        <div class="flex flex-col mx-4 gap-10 my-8 w-full md:mx-8" id="details">
+          <div id="backBtn" class="flex shadow-md items-center gap-2 p-2 w-24 cursor-pointer dark:bg-darkmodeShade">
             <i class="fa-solid fa-arrow-left"></i> Back
           </div>
 
-          <div class="flex justify-between gap-16 py-6">
+          <div class="flex flex-col md:flex-row justify-between gap-16 py-6">
             <!-- image div -->
-            <div id="imgcontainer" class="border border-solid w-1/2">
-              <img src="${clickedCountry.flag}" alt="${clickedCountry.name}" class="w-full"/>
+            <div id="imgcontainer" class="border border-solid w-11/12 md:w-1/2">
+              <img src="${clickedCountry.flag}" alt="${
+        clickedCountry.name
+      }" class="w-full"/>
             </div>
 
             <!-- details div -->
-            <div class="flex flex-col justify-between gap-8 w-1/2">
+            <div class="flex flex-col justify-between gap-8 w-11/12 md:w-1/2">
               <h2 class="text-2xl font-bold">${clickedCountry.name}</h2>
 
-              <div class="flex justify-between">
+              <div class="flex flex-col justify-between md:flex-row md:gap-6">
+
                 <div class="flex flex-col">
-                  <h4 class="font-bold">Native Name: <span class="font-light">${clickedCountry.nativeName || "N/A"}</span></h4>
-                  <h4 class="font-bold">Population: <span class="font-light">${clickedCountry.population.toLocaleString()}</span></h4>
-                  <h4 class="font-bold">Region: <span class="font-light">${clickedCountry.region}</span></h4>
-                  <h4 class="font-bold">Sub Region: <span class="font-light">${clickedCountry.subregion || "N/A"}</span></h4>
-                  <h4 class="font-bold">Capital: <span class="font-light">${clickedCountry.capital || "N/A"}</span></h4>
+                  <h4 class="font-bold">Native Name: <span class="font-light">${
+                    clickedCountry.nativeName || "N/A"
+                  }</span></h4>
+                  <h4 class="font-bold">Population: <span class="font-light">${
+                    clickedCountry.population
+                  }</span></h4>
+                  <h4 class="font-bold">Region: <span class="font-light">${
+                    clickedCountry.region
+                  }</span></h4>
+                  <h4 class="font-bold">Sub Region: <span class="font-light">${
+                    clickedCountry.subregion || "N/A"
+                  }</span></h4>
+                  <h4 class="font-bold">Capital: <span class="font-light">${
+                    clickedCountry.capital || "N/A"
+                  }</span></h4>
                 </div>
 
                 <div class="flex flex-col">
-                  <h4 class="font-bold">Top Level Domain: <span class="font-light">${clickedCountry.topLevelDomain || "N/A"}</span></h4>
-                  <h4 class="font-bold">Currencies: <span class="font-light">${clickedCountry.currencies ? clickedCountry.currencies.map(c => c.name).join(", ") : "N/A"}</span></h4>
-                  <h4 class="font-bold">Language: <span class="font-light">${clickedCountry.languages ? clickedCountry.languages.map(l => l.name).join(", ") : "N/A"}</span></h4>
+                  <h4 class="font-bold">Top Level Domain: <span class="font-light">${
+                    clickedCountry.topLevelDomain || "N/A"
+                  }</span></h4>
+                  <h4 class="font-bold">Currencies: <span class="font-light">${
+                    clickedCountry.currencies
+                      ? clickedCountry.currencies.map((c) => c.name).join(", ")
+                      : "N/A"
+                  }</span></h4>
+                  <h4 class="font-bold">Language: <span class="font-light">${
+                    clickedCountry.languages
+                      ? clickedCountry.languages.map((l) => l.name).join(", ")
+                      : "N/A"
+                  }</span></h4>
                 </div>
               </div>
 
               <div class="flex">
-                <h4 class="font-bold">Border Countries: <span class="font-light">${clickedCountry.borders ? clickedCountry.borders.join(", ") : "N/A"}</span></h4>
+                <h4 class="font-bold">Border Countries: <span class="font-light">${
+                  clickedCountry.borders
+                    ? clickedCountry.borders.join(", ")
+                    : "N/A"
+                }</span></h4>
               </div>
             </div>
           </div>
