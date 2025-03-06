@@ -57,7 +57,7 @@ const displayCurrentCountries = () => {
         <div class="flex flex-col w-full md:w-[23%] bg-white p-2 h-[300px] dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
           id="firstCard" 
           data-name="${country.name}">  
-  <div class="flex-1 border border-red-500" >
+ 
           <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/> </div>
 
           <div class="flex-1 border border-red-500">
@@ -67,7 +67,7 @@ const displayCurrentCountries = () => {
           <p class="text-gray-600 dark:text-[white]">Capital: ${country.capital}</p>
           </div>
   
-        </div>
+        
       `
       )
       .join("");
