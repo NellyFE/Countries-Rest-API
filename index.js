@@ -54,7 +54,7 @@ const displayCurrentCountries = () => {
     parentContainer.innerHTML = displayingCountries
       .map(
         (country) => `
-        <div class="flex flex-col w-full md:w-[23%] bg-white p-2 h-[300px] dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
+        <div class="flex flex-col w-full md:w-[23%] bg-white p-2 dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
           id="firstCard" 
           data-name="${country.name}">  
   
