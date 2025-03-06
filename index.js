@@ -58,7 +58,7 @@ const displayCurrentCountries = () => {
           id="firstCard" 
           data-name="${country.name}">  
  
-          <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/> </div>
+          <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/> 
 
          
           <h3 class="text-lg font-bold mt-2 dark:text-[white]">${country.name}</h3>
