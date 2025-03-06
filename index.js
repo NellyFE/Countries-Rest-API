@@ -44,7 +44,7 @@ const filterBox = document.getElementById("filter");
 
 const toggleDarkMode = document.getElementById("toggleDarkmode");
 const toggleLightMode = document.getElementById("toggleLightMode");
-const html = document.documentElement; // Get the <html> tag
+const html = document.documentElement; 
 
 let displayingCountries = [];
 let countries = [];
@@ -54,15 +54,18 @@ const displayCurrentCountries = () => {
     parentContainer.innerHTML = displayingCountries
       .map(
         (country) => `
-        <div class="flex flex-col w-full md:w-[23%] bg-white p-4 dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
+        <div class="flex flex-col w-full md:w-[23%] bg-white p-2 h-[300px] dark:bg-darkmodeShade dark:text-[white] rounded-lg shadow-md cursor-pointer" 
           id="firstCard" 
           data-name="${country.name}">  
-  
-          <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/>
+  <div class="flex-1 border border-red-500" >
+          <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/> </div>
+
+          <div class="flex-1 border border-red-500">
           <h3 class="text-lg font-bold mt-2 dark:text-[white]">${country.name}</h3>
           <p class="text-gray-600 dark:text-[white]">Population: ${country.population}</p>
           <p class="text-gray-600 dark:text-[white]">Region: ${country.region}</p>
           <p class="text-gray-600 dark:text-[white]">Capital: ${country.capital}</p>
+          </div>
   
         </div>
       `
