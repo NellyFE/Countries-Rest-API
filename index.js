@@ -60,7 +60,7 @@ const displayCurrentCountries = () => {
  
           <img src="${country.flag}" alt="${country.name}" class="w-full object-cover"/> </div>
 
-          <div class="flex-1 border border-red-500">
+         
           <h3 class="text-lg font-bold mt-2 dark:text-[white]">${country.name}</h3>
           <p class="text-gray-600 dark:text-[white]">Population: ${country.population}</p>
           <p class="text-gray-600 dark:text-[white]">Region: ${country.region}</p>
